@@ -12,6 +12,12 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Anime>()
+            .Property(x => x.Demographic)
+            .HasConversion<string>();
         
+        modelBuilder.Entity<Anime>()
+            .Property(x => x.Status)
+            .HasConversion<string>();
     }
 }
