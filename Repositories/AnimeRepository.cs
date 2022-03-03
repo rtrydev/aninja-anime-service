@@ -21,12 +21,12 @@ public class AnimeRepository : IAnimeRepository
 
     public async Task<IEnumerable<Anime>> GetAll()
     {
-        return await _context.Animes.ToListAsync();
+        return await _context.Animes.Include(x => x.Genres).ToListAsync();
     }
 
     public async Task<Anime?> GetById(int id)
     {
-        return await _context.Animes.FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.Animes.Include(x => x.Genres).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Anime> Create(Anime anime)

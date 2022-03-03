@@ -9,9 +9,9 @@ public class Anime
     public string? TranslatedTitle { get; set; }
     public string? ImgUrl { get; set; }
     public string? Description { get; set; }
-    public IEnumerable<Category>? Categories { get; set; }
-    public DateOnly StartDate { get; set; }
-    public DateOnly EndDate { get; set; }
+    public IEnumerable<Genre>? Genres { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public int EpisodeCount { get; set; }
     public Status Status { get; set; }
     public Demographic Demographic { get; set; }
