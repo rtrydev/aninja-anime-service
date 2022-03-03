@@ -1,5 +1,10 @@
+using aninja_browse_service.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddDbContext<AninjaDbContext>(options => options.UseInMemoryDatabase("InMemory"));
 // Add services to the container.
 
 builder.Services.AddControllers();
