@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+DbPrep.PrepData(app);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
