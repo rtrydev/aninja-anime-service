@@ -4,7 +4,7 @@ namespace aninja_browse_service.Models;
 
 public class Anime
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string? OriginalTitle { get; set; }
     public string? TranslatedTitle { get; set; }
     public string? ImgUrl { get; set; }
