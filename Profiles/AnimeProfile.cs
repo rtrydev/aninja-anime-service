@@ -9,11 +9,12 @@ public class AnimeProfile : Profile
 {
     public AnimeProfile()
     {
-        CreateMap<Anime, AnimeReadDto>();
-        CreateMap<AnimeReadDto, Anime>();
-        CreateMap<Anime, AnimeWriteDto>();
+        CreateMap<Anime, AnimeDetailsDto>();
+        CreateMap<Anime, AnimeDto>();
         CreateMap<AnimeWriteDto, Anime>();
         CreateMap<AnimeWriteDto, AddAnimeCommand>();
         CreateMap<AddAnimeCommand, Anime>();
+        CreateMap<AnimeWriteDto, UpdateAnimeCommand>();
+        CreateMap<UpdateAnimeCommand, Anime>();
     }
 }

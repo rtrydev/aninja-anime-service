@@ -19,5 +19,9 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Anime>()
             .Property(x => x.Status)
             .HasConversion<string>();
+
+        modelBuilder.Entity<Anime>()
+            .HasMany(x => x.Genres)
+            .WithMany(x => x.Animes);
     }
 }

@@ -24,18 +24,18 @@ public class AnimeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AnimeReadDto>>> GetAnimes()
+    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes()
     {
         var query = new GetAllAnimesQuery()
         {
             OrderBy = OrderByAnimesOptions.ByTitle
         };
         var result = await _mediator.Send(query);
-        return Ok(_mapper.Map<IEnumerable<AnimeReadDto>>(result));
+        return Ok(_mapper.Map<IEnumerable<AnimeDto>>(result));
     }
 
     [HttpGet("{id}", Name = "GetAnimeById")]
-    public async Task<ActionResult<AnimeReadDto>> GetAnimeById(int id)
+    public async Task<ActionResult<AnimeDetailsDto>> GetAnimeById(int id)
     {
         var query = new GetAnimeByIdQuery()
         {
@@ -43,13 +43,21 @@ public class AnimeController : ControllerBase
         };
         var result = await _mediator.Send(query);
         if (result is null) return NotFound();
-        return Ok(_mapper.Map<AnimeReadDto>(result));
+        return Ok(_mapper.Map<AnimeDetailsDto>(result));
     }
 
     [HttpPost]
     public async Task<ActionResult> AddAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<AddAnimeCommand>(anime);
+        var result = await _mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateAnime(AnimeWriteDto anime)
+    {
+        var command = _mapper.Map<UpdateAnimeCommand>(anime);
         var result = await _mediator.Send(command);
         return Ok();
     }

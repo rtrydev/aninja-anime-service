@@ -9,6 +9,6 @@ public interface IAnimeRepository
     Task<IEnumerable<Anime>> GetAll();
     Task<Anime?> GetById(int id);
     Task Create(Anime anime);
-    void Update(Anime anime);
-    void Delete(Anime anime);
+    Task Update(Anime anime);
+    Task Delete(Anime anime);
 }

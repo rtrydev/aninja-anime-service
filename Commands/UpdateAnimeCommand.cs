@@ -1,8 +1,9 @@
 using aninja_browse_service.Models;
+using MediatR;
 
-namespace aninja_browse_service.Dtos;
+namespace aninja_browse_service.Commands;
 
-public class AnimeWriteDto
+public class UpdateAnimeCommand : IRequest
 {
     public int Id { get; set; }
     public string? OriginalTitle { get; set; }

@@ -3,8 +3,9 @@ using aninja_browse_service.Models;
 
 namespace aninja_browse_service.Dtos;
 
-public class AnimeReadDto
+public class AnimeDetailsDto
 {
+    public int Id { get; set; }
     public string? OriginalTitle { get; set; }
     public string? TranslatedTitle { get; set; }
     public string? ImgUrl { get; set; }
