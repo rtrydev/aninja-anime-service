@@ -19,7 +19,7 @@ public class AddAnimeCommandHandler : IRequestHandler<AddAnimeCommand, Unit>
 
     public async Task<Unit> Handle(AddAnimeCommand request, CancellationToken cancellationToken)
     {
-        var item = _mapper.Map<Anime>(request.AnimeToAdd);
+        var item = _mapper.Map<Anime>(request);
         await _animeRepository.Create(item);
         await _animeRepository.SaveChangesAsync();
         return await Task.FromResult(Unit.Value);

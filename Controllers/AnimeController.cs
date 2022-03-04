@@ -15,10 +15,12 @@ namespace aninja_browse_service.Controllers;
 public class AnimeController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
-    public AnimeController(IMediator mediator)
+    public AnimeController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -29,7 +31,7 @@ public class AnimeController : ControllerBase
             OrderBy = OrderByAnimesOptions.ByTitle
         };
         var result = await _mediator.Send(query);
-        return Ok(result);
+        return Ok(_mapper.Map<IEnumerable<AnimeReadDto>>(result));
     }
 
     [HttpGet("{id}", Name = "GetAnimeById")]
@@ -41,18 +43,15 @@ public class AnimeController : ControllerBase
         };
         var result = await _mediator.Send(query);
         if (result is null) return NotFound();
-        return Ok(result);
+        return Ok(_mapper.Map<AnimeReadDto>(result));
     }
 
     [HttpPost]
-    public async Task<ActionResult<AnimeReadDto>> AddAnime(AnimeWriteDto anime)
+    public async Task<ActionResult> AddAnime(AnimeWriteDto anime)
     {
-        var command = new AddAnimeCommand()
-        {
-            AnimeToAdd = anime
-        };
+        var command = _mapper.Map<AddAnimeCommand>(anime);
         var result = await _mediator.Send(command);
-        return Ok(result);
+        return Ok();
     }
 
 }

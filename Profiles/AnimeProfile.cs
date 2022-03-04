@@ -1,3 +1,4 @@
+using aninja_browse_service.Commands;
 using aninja_browse_service.Dtos;
 using aninja_browse_service.Models;
 using AutoMapper;
@@ -12,5 +13,7 @@ public class AnimeProfile : Profile
         CreateMap<AnimeReadDto, Anime>();
         CreateMap<Anime, AnimeWriteDto>();
         CreateMap<AnimeWriteDto, Anime>();
+        CreateMap<AnimeWriteDto, AddAnimeCommand>();
+        CreateMap<AddAnimeCommand, Anime>();
     }
 }
