@@ -7,7 +7,6 @@ namespace aninja_browse_service.Data;
 public class AppDbContext : DbContext
 {
     public DbSet<Anime> Animes { get; set; }
-    public DbSet<Genre> Genres { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,9 +18,5 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Anime>()
             .Property(x => x.Status)
             .HasConversion<string>();
-
-        modelBuilder.Entity<Anime>()
-            .HasMany(x => x.Genres)
-            .WithMany(x => x.Animes);
     }
 }

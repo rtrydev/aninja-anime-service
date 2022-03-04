@@ -21,47 +21,16 @@ public class AnimeRepository : IAnimeRepository
 
     public async Task<IEnumerable<Anime>> GetAll()
     {
-        return await _context.Animes.Select(x => new
-            Anime() {
-                Id = x.Id,
-                OriginalTitle = x.OriginalTitle,
-                TranslatedTitle = x.TranslatedTitle,
-                ImgUrl = x.ImgUrl,
-                Description = x.Description,
-                Genres = x.Genres.Select(y => new Genre() {Id = y.Id, Name = y.Name}),
-                StartDate = x.StartDate,
-                EndDate = x.EndDate,
-                EpisodeCount = x.EpisodeCount,
-                Status = x.Status,
-                Demographic = x.Demographic
-            }).ToListAsync();
+        return await _context.Animes.ToListAsync();
     }
 
     public async Task<Anime?> GetById(int id)
     {
-        return await _context.Animes.Select(x => new
-        Anime() {
-            Id = x.Id,
-            OriginalTitle = x.OriginalTitle,
-            TranslatedTitle = x.TranslatedTitle,
-            ImgUrl = x.ImgUrl,
-            Description = x.Description,
-            Genres = x.Genres.Select(y => new Genre() {Id = y.Id, Name = y.Name}),
-            StartDate = x.StartDate,
-            EndDate = x.EndDate,
-            EpisodeCount = x.EpisodeCount,
-            Status = x.Status,
-            Demographic = x.Demographic
-        }).FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.Animes.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task Create(Anime anime)
     {
-        if (anime.Genres is not null)
-        {
-            var genres = _context.Genres.Where(x => anime.Genres.Contains(x)).ToArray();
-            anime.Genres = genres;
-        }
         await _context.Animes.AddAsync(anime);
     }
 
