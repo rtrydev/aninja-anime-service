@@ -8,7 +8,11 @@ public class AnimeConfiguration : IEntityTypeConfiguration<Anime>
 {
     public void Configure(EntityTypeBuilder<Anime> builder)
     {
-        
-            
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .IsRequired()
+            .ValueGeneratedOnAdd();
+
     }
 }

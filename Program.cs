@@ -12,7 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDataba
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddTransient<IAnimeRepository, AnimeRepository>();
+builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

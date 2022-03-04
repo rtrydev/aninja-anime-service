@@ -10,5 +10,7 @@ public class AnimeProfile : Profile
     {
         CreateMap<Anime, AnimeReadDto>();
         CreateMap<AnimeReadDto, Anime>();
+        CreateMap<Anime, AnimeWriteDto>();
+        CreateMap<AnimeWriteDto, Anime>();
     }
 }

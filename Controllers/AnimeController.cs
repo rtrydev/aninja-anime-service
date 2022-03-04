@@ -1,3 +1,4 @@
+using aninja_browse_service.Commands;
 using aninja_browse_service.Dtos;
 using aninja_browse_service.Enums;
 using aninja_browse_service.Models;
@@ -40,6 +41,17 @@ public class AnimeController : ControllerBase
         };
         var result = await _mediator.Send(query);
         if (result is null) return NotFound();
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<AnimeReadDto>> AddAnime(AnimeWriteDto anime)
+    {
+        var command = new AddAnimeCommand()
+        {
+            AnimeToAdd = anime
+        };
+        var result = await _mediator.Send(command);
         return Ok(result);
     }
 

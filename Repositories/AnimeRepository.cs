@@ -29,16 +29,19 @@ public class AnimeRepository : IAnimeRepository
         return await _context.Animes.Include(x => x.Genres).FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Anime> Create(Anime anime)
+    public async Task Create(Anime anime)
     {
-        var result = await _context.Animes.AddAsync(anime);
-        return result.Entity;
+        if (anime.Genres is not null)
+        {
+            var genres = _context.Genres.Where(x => anime.Genres.Contains(x)).ToArray();
+            anime.Genres = genres;
+        }
+        await _context.Animes.AddAsync(anime);
     }
 
-    public Anime Update(Anime anime)
+    public void Update(Anime anime)
     {
-        var result = _context.Update(anime);
-        return result.Entity;
+        _context.Update(anime);
     }
 
     public void Delete(Anime anime)
