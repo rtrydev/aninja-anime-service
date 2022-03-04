@@ -1,7 +1,10 @@
 using aninja_browse_service.Dtos;
+using aninja_browse_service.Enums;
 using aninja_browse_service.Models;
+using aninja_browse_service.Queries;
 using aninja_browse_service.Repositories;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace aninja_browse_service.Controllers;
@@ -10,29 +13,34 @@ namespace aninja_browse_service.Controllers;
 [ApiController]
 public class AnimeController : ControllerBase
 {
-    private readonly IAnimeRepository _animeRepository;
-    private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
 
-    public AnimeController(IAnimeRepository animeRepository, IMapper mapper)
+    public AnimeController(IMediator mediator)
     {
-        _animeRepository = animeRepository;
-        _mapper = mapper;
+        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AnimeReadDto>>> GetAnimes()
     {
-        var items = await _animeRepository.GetAll();
-        var result = _mapper.Map<IEnumerable<AnimeReadDto>>(items);
+        var query = new GetAllAnimesQuery()
+        {
+            OrderBy = OrderByAnimesOptions.ByTitle
+        };
+        var result = await _mediator.Send(query);
         return Ok(result);
     }
 
     [HttpGet("{id}", Name = "GetAnimeById")]
     public async Task<ActionResult<AnimeReadDto>> GetAnimeById(int id)
     {
-        var item = await _animeRepository.GetById(id);
-        if (item is null) return NotFound();
-        return Ok(item);
+        var query = new GetAnimeByIdQuery()
+        {
+            Id = id
+        };
+        var result = await _mediator.Send(query);
+        if (result is null) return NotFound();
+        return Ok(result);
     }
 
 }
