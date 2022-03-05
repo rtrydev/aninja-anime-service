@@ -1,6 +1,7 @@
 using aninja_browse_service.AsyncDataServices;
 using aninja_browse_service.Data;
 using aninja_browse_service.Repositories;
+using aninja_browse_service.SyncDataServices;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,5 +37,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGrpcService<GrpcBrowseService>();
+app.MapGet("/protos/anime.proto", async context =>
+{
+    await context.Response.WriteAsync(File.ReadAllText("Protos/anime.proto"));
+});
 
 app.Run();
