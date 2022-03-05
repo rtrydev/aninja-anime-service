@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace aninja_browse_service.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/anime")]
 [ApiController]
 public class AnimeController : ControllerBase
 {
