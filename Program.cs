@@ -1,18 +1,22 @@
+using aninja_browse_service.AsyncDataServices;
 using aninja_browse_service.Data;
 using aninja_browse_service.Repositories;
-using AutoMapper;
+using aninja_browse_service.SyncDataServices;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMemory"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddGrpc();
+
 builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,5 +39,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGrpcService<GrpcBrowseService>();
+app.MapGet("/protos/anime.proto", async context =>
+{
+    await context.Response.WriteAsync(File.ReadAllText("Protos/anime.proto"));
+});
 
 app.Run();

@@ -1,3 +1,4 @@
+using aninja_browse_service.AsyncDataServices;
 using aninja_browse_service.Commands;
 using aninja_browse_service.Dtos;
 using aninja_browse_service.Enums;
@@ -10,17 +11,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace aninja_browse_service.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/anime")]
 [ApiController]
 public class AnimeController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private IMessageBusClient _messageBusClient;
 
-    public AnimeController(IMediator mediator, IMapper mapper)
+    public AnimeController(IMediator mediator, IMapper mapper, IMessageBusClient messageBusClient)
     {
         _mediator = mediator;
         _mapper = mapper;
+        _messageBusClient = messageBusClient;
     }
 
     [HttpGet]
@@ -51,7 +54,12 @@ public class AnimeController : ControllerBase
     {
         var command = _mapper.Map<AddAnimeCommand>(anime);
         var result = await _mediator.Send(command);
-        return Ok();
+
+        var animePublished = _mapper.Map<AnimePublishedDto>(result);
+        animePublished.Event = "Anime_Published";
+        _messageBusClient.PublishNewAnime(animePublished);
+        
+        return Ok(result);
     }
 
     [HttpPut]

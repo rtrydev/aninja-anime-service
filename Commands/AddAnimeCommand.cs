@@ -4,7 +4,7 @@ using MediatR;
 
 namespace aninja_browse_service.Commands;
 
-public class AddAnimeCommand : IRequest
+public class AddAnimeCommand : IRequest<Anime>
 {
     public string? OriginalTitle { get; set; }
     public string? TranslatedTitle { get; set; }

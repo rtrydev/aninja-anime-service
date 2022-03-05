@@ -1,3 +1,4 @@
+using aninja_browse_service.Configurations;
 using aninja_browse_service.Enums;
 using aninja_browse_service.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,8 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new AnimeConfiguration());
+        
         modelBuilder.Entity<Anime>()
             .Property(x => x.Demographic)
             .HasConversion<string>();

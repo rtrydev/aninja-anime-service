@@ -29,9 +29,10 @@ public class AnimeRepository : IAnimeRepository
         return await _context.Animes.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task Create(Anime anime)
+    public async Task<Anime> Create(Anime anime)
     {
-        await _context.Animes.AddAsync(anime);
+        var result = await _context.Animes.AddAsync(anime);
+        return result.Entity;
     }
 
     public async Task Update(Anime anime)
