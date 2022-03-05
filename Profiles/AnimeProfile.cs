@@ -16,7 +16,8 @@ public class AnimeProfile : Profile
         CreateMap<AddAnimeCommand, Anime>();
         CreateMap<AnimeWriteDto, UpdateAnimeCommand>();
         CreateMap<UpdateAnimeCommand, Anime>();
-        CreateMap<Anime, GrpcAnimeModel>();
+        CreateMap<Anime, GrpcAnimeModel>()
+            .ForMember(dest => dest.AnimeId, opt => opt.MapFrom(src => src.Id));
         CreateMap<Anime, AnimePublishedDto>();
     }
 }

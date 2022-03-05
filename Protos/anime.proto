@@ -10,7 +10,7 @@ message GetAllRequest {}
 
 message GrpcAnimeModel {
     int32 animeId = 1;
-    string translatedName = 2;
+    string translatedTitle = 2;
 }
 
 message AnimeResponse {
