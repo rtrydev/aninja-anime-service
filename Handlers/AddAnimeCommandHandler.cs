@@ -6,7 +6,7 @@ using MediatR;
 
 namespace aninja_browse_service.Handlers;
 
-public class AddAnimeCommandHandler : IRequestHandler<AddAnimeCommand, Unit>
+public class AddAnimeCommandHandler : IRequestHandler<AddAnimeCommand, Anime>
 {
     private IMapper _mapper;
     private IAnimeRepository _animeRepository;
@@ -17,11 +17,11 @@ public class AddAnimeCommandHandler : IRequestHandler<AddAnimeCommand, Unit>
         _animeRepository = animeRepository;
     }
 
-    public async Task<Unit> Handle(AddAnimeCommand request, CancellationToken cancellationToken)
+    public async Task<Anime> Handle(AddAnimeCommand request, CancellationToken cancellationToken)
     {
         var item = _mapper.Map<Anime>(request);
-        await _animeRepository.Create(item);
+        var anime = await _animeRepository.Create(item);
         await _animeRepository.SaveChangesAsync();
-        return await Task.FromResult(Unit.Value);
+        return anime;
     }
 }

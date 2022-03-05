@@ -13,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddGrpc();
+
 builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
