@@ -1,6 +1,6 @@
-using aninja_browse_service.Enums;
+using aninja_anime_service.Enums;
 
-namespace aninja_browse_service.Models;
+namespace aninja_anime_service.Models;
 
 public class Anime
 {

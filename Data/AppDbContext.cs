@@ -1,9 +1,9 @@
-using aninja_browse_service.Configurations;
-using aninja_browse_service.Enums;
-using aninja_browse_service.Models;
+using aninja_anime_service.Configurations;
+using aninja_anime_service.Models;
+using aninja_anime_service.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace aninja_browse_service.Data;
+namespace aninja_anime_service.Data;
 
 public class AppDbContext : DbContext
 {

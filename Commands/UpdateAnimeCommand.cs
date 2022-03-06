@@ -1,7 +1,7 @@
-using aninja_browse_service.Models;
+using aninja_anime_service.Models;
 using MediatR;
 
-namespace aninja_browse_service.Commands;
+namespace aninja_anime_service.Commands;
 
 public class UpdateAnimeCommand : IRequest
 {

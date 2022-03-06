@@ -1,6 +1,6 @@
-using aninja_browse_service.Models;
+using aninja_anime_service.Models;
 
-namespace aninja_browse_service.Dtos;
+namespace aninja_anime_service.Dtos;
 
 public class AnimeWriteDto
 {

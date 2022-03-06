@@ -1,9 +1,9 @@
 using System.Text;
 using System.Text.Json;
-using aninja_browse_service.Dtos;
+using aninja_anime_service.Dtos;
 using RabbitMQ.Client;
 
-namespace aninja_browse_service.AsyncDataServices;
+namespace aninja_anime_service.AsyncDataServices;
 
 public class MessageBusClient : IMessageBusClient
 {

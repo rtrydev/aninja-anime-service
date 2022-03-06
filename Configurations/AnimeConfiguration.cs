@@ -1,8 +1,8 @@
-using aninja_browse_service.Models;
+using aninja_anime_service.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace aninja_browse_service.Configurations;
+namespace aninja_anime_service.Configurations;
 
 public class AnimeConfiguration : IEntityTypeConfiguration<Anime>
 {

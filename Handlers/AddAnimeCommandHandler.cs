@@ -1,10 +1,10 @@
-using aninja_browse_service.Commands;
-using aninja_browse_service.Models;
-using aninja_browse_service.Repositories;
+using aninja_anime_service.Commands;
+using aninja_anime_service.Models;
+using aninja_anime_service.Repositories;
 using AutoMapper;
 using MediatR;
 
-namespace aninja_browse_service.Handlers;
+namespace aninja_anime_service.Handlers;
 
 public class AddAnimeCommandHandler : IRequestHandler<AddAnimeCommand, Anime>
 {

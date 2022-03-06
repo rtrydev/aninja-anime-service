@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace aninja_browse_service.Migrations
+namespace aninja_anime_service.Migrations
 {
     public partial class init : Migration
     {

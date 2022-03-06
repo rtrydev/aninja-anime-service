@@ -1,8 +1,8 @@
-using aninja_browse_service.Enums;
-using aninja_browse_service.Models;
+using aninja_anime_service.Enums;
+using aninja_anime_service.Models;
 using MediatR;
 
-namespace aninja_browse_service.Queries;
+namespace aninja_anime_service.Queries;
 
 public class GetAllAnimesQuery : IRequest<IEnumerable<Anime>>
 {

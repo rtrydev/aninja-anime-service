@@ -1,15 +1,15 @@
-using aninja_browse_service.AsyncDataServices;
-using aninja_browse_service.Commands;
-using aninja_browse_service.Dtos;
-using aninja_browse_service.Enums;
-using aninja_browse_service.Models;
-using aninja_browse_service.Queries;
-using aninja_browse_service.Repositories;
+using aninja_anime_service.AsyncDataServices;
+using aninja_anime_service.Commands;
+using aninja_anime_service.Dtos;
+using aninja_anime_service.Enums;
+using aninja_anime_service.Queries;
+using aninja_anime_service.Models;
+using aninja_anime_service.Repositories;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace aninja_browse_service.Controllers;
+namespace aninja_anime_service.Controllers;
 
 [Route("api/anime")]
 [ApiController]

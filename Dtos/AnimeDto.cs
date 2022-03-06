@@ -1,4 +1,4 @@
-namespace aninja_browse_service.Dtos;
+namespace aninja_anime_service.Dtos;
 
 public class AnimeDto
 {
