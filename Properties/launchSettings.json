@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "aninja_browse_service": {
+    "aninja_anime_service": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
