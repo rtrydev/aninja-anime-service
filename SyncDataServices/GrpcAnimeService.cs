@@ -1,15 +1,15 @@
-using aninja_browse_service.Repositories;
+using aninja_anime_service.Repositories;
 using AutoMapper;
 using Grpc.Core;
 
-namespace aninja_browse_service.SyncDataServices;
+namespace aninja_anime_service.SyncDataServices;
 
-public class GrpcBrowseService : GrpcAnime.GrpcAnimeBase
+public class GrpcAnimeService : GrpcAnime.GrpcAnimeBase
 {
     private readonly IAnimeRepository _animeRepository;
     private readonly IMapper _mapper;
 
-    public GrpcBrowseService(IAnimeRepository animeRepository, IMapper mapper)
+    public GrpcAnimeService(IAnimeRepository animeRepository, IMapper mapper)
     {
         _animeRepository = animeRepository;
         _mapper = mapper;

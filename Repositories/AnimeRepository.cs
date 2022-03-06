@@ -1,8 +1,8 @@
-using aninja_browse_service.Data;
-using aninja_browse_service.Models;
+using aninja_anime_service.Data;
+using aninja_anime_service.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace aninja_browse_service.Repositories;
+namespace aninja_anime_service.Repositories;
 
 public class AnimeRepository : IAnimeRepository
 {

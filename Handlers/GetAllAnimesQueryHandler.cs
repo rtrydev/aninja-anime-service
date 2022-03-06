@@ -1,12 +1,12 @@
-using aninja_browse_service.Dtos;
-using aninja_browse_service.Enums;
-using aninja_browse_service.Models;
-using aninja_browse_service.Queries;
-using aninja_browse_service.Repositories;
+using aninja_anime_service.Enums;
+using aninja_anime_service.Models;
+using aninja_anime_service.Queries;
+using aninja_anime_service.Repositories;
+using aninja_anime_service.Dtos;
 using AutoMapper;
 using MediatR;
 
-namespace aninja_browse_service.Handlers;
+namespace aninja_anime_service.Handlers;
 
 public class GetAllAnimesQueryHandler : IRequestHandler<GetAllAnimesQuery, IEnumerable<Anime>>
 {

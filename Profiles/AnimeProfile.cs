@@ -1,9 +1,9 @@
-using aninja_browse_service.Commands;
-using aninja_browse_service.Dtos;
-using aninja_browse_service.Models;
+using aninja_anime_service.Commands;
+using aninja_anime_service.Dtos;
+using aninja_anime_service.Models;
 using AutoMapper;
 
-namespace aninja_browse_service.Profiles;
+namespace aninja_anime_service.Profiles;
 
 public class AnimeProfile : Profile
 {

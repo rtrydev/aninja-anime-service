@@ -1,4 +1,4 @@
-namespace aninja_browse_service.Enums;
+namespace aninja_anime_service.Enums;
 
 public enum Status
 {
