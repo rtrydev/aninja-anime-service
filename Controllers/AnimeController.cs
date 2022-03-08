@@ -27,11 +27,12 @@ public class AnimeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes()
+    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes(string? orderBy)
     {
+        Enum.TryParse(orderBy, out OrderByAnimesOptions option);
         var query = new GetAllAnimesQuery()
         {
-            OrderBy = OrderByAnimesOptions.ByTitle
+            OrderBy = option
         };
         var result = await _mediator.Send(query);
         return Ok(_mapper.Map<IEnumerable<AnimeDto>>(result));
