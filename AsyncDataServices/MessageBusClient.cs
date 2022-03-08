@@ -45,6 +45,16 @@ public class MessageBusClient : IMessageBusClient
         }
     }
 
+    public void PublishAnimeUpdate(AnimePublishedDto animePublishedDto)
+    {
+        var message = JsonSerializer.Serialize(animePublishedDto);
+
+        if (_connection.IsOpen)
+        {
+            SendMessage(message);
+        }
+    }
+
     public void Dispose()
     {
         if (_channel.IsOpen)
