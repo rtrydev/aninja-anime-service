@@ -27,11 +27,12 @@ public class AnimeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes()
+    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes(string? orderBy)
     {
+        Enum.TryParse(orderBy, out OrderByAnimesOptions option);
         var query = new GetAllAnimesQuery()
         {
-            OrderBy = OrderByAnimesOptions.ByTitle
+            OrderBy = option
         };
         var result = await _mediator.Send(query);
         return Ok(_mapper.Map<IEnumerable<AnimeDto>>(result));
@@ -50,7 +51,7 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddAnime(AnimeWriteDto anime)
+    public async Task<ActionResult<AnimeDetailsDto>> AddAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<AddAnimeCommand>(anime);
         var result = await _mediator.Send(command);
@@ -59,15 +60,20 @@ public class AnimeController : ControllerBase
         animePublished.Event = "Anime_Published";
         _messageBusClient.PublishNewAnime(animePublished);
         
-        return Ok(result);
+        return Ok(_mapper.Map<AnimeDetailsDto>(result));
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateAnime(AnimeWriteDto anime)
+    public async Task<ActionResult<AnimeDetailsDto>> UpdateAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<UpdateAnimeCommand>(anime);
         var result = await _mediator.Send(command);
-        return Ok();
+        
+        var animePublished = _mapper.Map<AnimePublishedDto>(result);
+        animePublished.Event = "Anime_Updated";
+        _messageBusClient.PublishAnimeUpdate(animePublished);
+        
+        return Ok(_mapper.Map<AnimeDetailsDto>(result));
     }
 
 }

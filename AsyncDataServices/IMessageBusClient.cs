@@ -5,4 +5,5 @@ namespace aninja_anime_service.AsyncDataServices;
 public interface IMessageBusClient
 {
     void PublishNewAnime(AnimePublishedDto animePublishedDto);
+    void PublishAnimeUpdate(AnimePublishedDto animePublishedDto);
 }
