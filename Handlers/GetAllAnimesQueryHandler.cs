@@ -3,6 +3,7 @@ using aninja_anime_service.Models;
 using aninja_anime_service.Queries;
 using aninja_anime_service.Repositories;
 using aninja_anime_service.Dtos;
+using aninja_anime_service.SyncDataServices;
 using AutoMapper;
 using MediatR;
 
@@ -11,10 +12,12 @@ namespace aninja_anime_service.Handlers;
 public class GetAllAnimesQueryHandler : IRequestHandler<GetAllAnimesQuery, IEnumerable<Anime>>
 {
     private IAnimeRepository _animeRepository;
+    private IAnimeTagDataClient _animeTagDataClient;
 
-    public GetAllAnimesQueryHandler(IAnimeRepository animeRepository)
+    public GetAllAnimesQueryHandler(IAnimeRepository animeRepository, IAnimeTagDataClient animeTagDataClient)
     {
         _animeRepository = animeRepository;
+        _animeTagDataClient = animeTagDataClient;
     }
 
     public async Task<IEnumerable<Anime>> Handle(GetAllAnimesQuery request, CancellationToken cancellationToken)
@@ -45,6 +48,12 @@ public class GetAllAnimesQueryHandler : IRequestHandler<GetAllAnimesQuery, IEnum
                 items = foundItems;
             }
             
+        }
+
+        if (request.TagIds is not null && request.TagIds.Any())
+        {
+            var anime = _animeTagDataClient.ReturnAllAnimeWithTags(request.TagIds);
+            items = items.Where(x => anime.Any(y => x.Id == y.Id));
         }
         
         var result = request.OrderBy switch

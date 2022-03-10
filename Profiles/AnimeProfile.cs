@@ -19,5 +19,7 @@ public class AnimeProfile : Profile
         CreateMap<Anime, GrpcAnimeModel>()
             .ForMember(dest => dest.AnimeId, opt => opt.MapFrom(src => src.Id));
         CreateMap<Anime, AnimePublishedDto>();
+        CreateMap<aninja_tags_service.GrpcAnimeModel, Anime>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.AnimeId));
     }
 }

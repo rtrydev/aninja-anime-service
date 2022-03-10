@@ -10,4 +10,5 @@ public class GetAllAnimesQuery : IRequest<IEnumerable<Anime>>
     public IEnumerable<string>? Demographics { get; set; }
     public IEnumerable<string>? Statuses { get; set; }
     public string? Name { get; set; }
+    public IEnumerable<int>? TagIds { get; set; }
 }

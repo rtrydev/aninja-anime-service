@@ -17,6 +17,7 @@ builder.Services.AddGrpc();
 
 builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+builder.Services.AddScoped<IAnimeTagDataClient, AnimeTagDataClient>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
