@@ -20,6 +20,33 @@ public class GetAllAnimesQueryHandler : IRequestHandler<GetAllAnimesQuery, IEnum
     public async Task<IEnumerable<Anime>> Handle(GetAllAnimesQuery request, CancellationToken cancellationToken)
     {
         var items = await _animeRepository.GetAll();
+
+        if (request.Demographics is not null && request.Demographics.Any())
+        {
+            var demographics = request.Demographics.Select(Enum.Parse<Demographic>);
+            items = items.Where(x => demographics.Contains(x.Demographic));
+        }
+
+        if (request.Statuses is not null && request.Statuses.Any())
+        {
+            var statuses = request.Statuses.Select(Enum.Parse<Status>);
+            items = items.Where(x => statuses.Contains(x.Status));
+        }
+
+        if (request.Name is not null)
+        {
+            var foundItems = items.Where(x => x.TranslatedTitle.ToUpper().Contains(request.Name.ToUpper()));
+            if (foundItems is null || !foundItems.Any())
+            {
+                items = items.Where(x => x.OriginalTitle.Contains(request.Name));
+            }
+            else
+            {
+                items = foundItems;
+            }
+            
+        }
+        
         var result = request.OrderBy switch
         {
             OrderByAnimesOptions.None => items,
