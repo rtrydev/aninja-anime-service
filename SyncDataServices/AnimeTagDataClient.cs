@@ -21,7 +21,6 @@ public class AnimeTagDataClient : IAnimeTagDataClient
         var request = new GetAllWithTagsRequest() {TagId = {tagIds}};
         var channel = GrpcChannel.ForAddress(_configuration["GrpcPlatform"]);
         var client = new GrpcTag.GrpcTagClient(channel);
-        
 
         var reply = client.GetAllAnimeWithTags(request);
         return _mapper.Map<IEnumerable<Anime>>(reply.Anime);
