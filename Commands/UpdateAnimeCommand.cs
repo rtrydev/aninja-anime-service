@@ -3,7 +3,7 @@ using MediatR;
 
 namespace aninja_anime_service.Commands;
 
-public class UpdateAnimeCommand : IRequest<Anime>
+public class UpdateAnimeCommand : IRequest<Anime?>
 {
     public int Id { get; set; }
     public string? OriginalTitle { get; set; }

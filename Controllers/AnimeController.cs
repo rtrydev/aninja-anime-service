@@ -72,6 +72,7 @@ public class AnimeController : ControllerBase
     {
         var command = _mapper.Map<UpdateAnimeCommand>(anime);
         var result = await _mediator.Send(command);
+        if (result is null) return NotFound();
         
         var animePublished = _mapper.Map<AnimePublishedDto>(result);
         animePublished.Event = "Anime_Updated";
