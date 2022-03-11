@@ -10,7 +10,9 @@ public class DbPrep
     {
         using (var serviceScope = app.ApplicationServices.CreateScope())
         {
-            SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>()); 
+            var dbContext = serviceScope.ServiceProvider.GetService<AppDbContext>();
+            if(dbContext is not null) SeedData(dbContext); 
+
         }
     }
 

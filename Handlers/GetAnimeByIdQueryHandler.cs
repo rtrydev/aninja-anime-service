@@ -7,7 +7,7 @@ using MediatR;
 
 namespace aninja_anime_service.Handlers;
 
-public class GetAnimeByIdQueryHandler : IRequestHandler<GetAnimeByIdQuery, Anime>
+public class GetAnimeByIdQueryHandler : IRequestHandler<GetAnimeByIdQuery, Anime?>
 {
     private IAnimeRepository _animeRepository;
 
@@ -16,7 +16,7 @@ public class GetAnimeByIdQueryHandler : IRequestHandler<GetAnimeByIdQuery, Anime
         _animeRepository = animeRepository;
     }
 
-    public async Task<Anime> Handle(GetAnimeByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Anime?> Handle(GetAnimeByIdQuery request, CancellationToken cancellationToken)
     {
         var item = await _animeRepository.GetById(request.Id);
         return item;
