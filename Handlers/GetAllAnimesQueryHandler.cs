@@ -38,6 +38,7 @@ public class GetAllAnimesQueryHandler : IRequestHandler<GetAllAnimesQuery, IEnum
 
         if (request.Name is not null)
         {
+            request.Name = request.Name.Trim();
             var foundItems = items.Where(x => x.TranslatedTitle.ToUpper().Contains(request.Name.ToUpper()));
             if (foundItems is null || !foundItems.Any())
             {
