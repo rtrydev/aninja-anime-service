@@ -27,7 +27,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     o.TokenValidationParameters = new TokenValidationParameters()
     {
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("verysecurekeyforjwt")),
-        ValidIssuer = "https://localhost:7246",
         ValidateIssuerSigningKey = true,
         ValidateIssuer = false,
         ValidateAudience = false,

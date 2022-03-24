@@ -56,10 +56,9 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> AddAnime(AnimeWriteDto anime)
     {
-        var someId = User.Claims.First(p => p.Type == "id").Value;
         var command = _mapper.Map<AddAnimeCommand>(anime);
         var result = await _mediator.Send(command);
 
@@ -71,6 +70,7 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> UpdateAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<UpdateAnimeCommand>(anime);
