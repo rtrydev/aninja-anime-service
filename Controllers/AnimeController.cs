@@ -8,6 +8,7 @@ using aninja_anime_service.Repositories;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace aninja_anime_service.Controllers;
 
@@ -55,6 +56,7 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> AddAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<AddAnimeCommand>(anime);
@@ -68,6 +70,7 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> UpdateAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<UpdateAnimeCommand>(anime);
