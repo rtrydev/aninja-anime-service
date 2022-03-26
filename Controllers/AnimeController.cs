@@ -56,7 +56,6 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> AddAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<AddAnimeCommand>(anime);
@@ -70,7 +69,6 @@ public class AnimeController : ControllerBase
     }
 
     [HttpPut]
-    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<AnimeDetailsDto>> UpdateAnime(AnimeWriteDto anime)
     {
         var command = _mapper.Map<UpdateAnimeCommand>(anime);
