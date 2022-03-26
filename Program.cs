@@ -22,17 +22,6 @@ builder.Services.AddGrpc();
 builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 builder.Services.AddScoped<IAnimeTagDataClient, AnimeTagDataClient>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
-{
-    o.TokenValidationParameters = new TokenValidationParameters()
-    {
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("verysecurekeyforjwt")),
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ClockSkew = TimeSpan.Zero
-    };
-});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
