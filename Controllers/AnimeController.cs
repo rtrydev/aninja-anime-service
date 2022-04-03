@@ -28,7 +28,14 @@ public class AnimeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AnimeDto>>> GetAnimes([FromQuery] string? orderBy, [FromQuery] IEnumerable<string>? demographics, [FromQuery] IEnumerable<string>? statuses, [FromQuery] string? name, [FromQuery] IEnumerable<int>? tagIds)
+    public async Task<ActionResult<AnimeSearchResultDto>> GetAnimes(
+        [FromQuery] string? orderBy, 
+        [FromQuery] IEnumerable<string>? demographics, 
+        [FromQuery] IEnumerable<string>? statuses, 
+        [FromQuery] string? name, 
+        [FromQuery] IEnumerable<int>? tagIds,
+        [FromQuery] int page = 1,
+        [FromQuery] int resultsPerPage = 10)
     {
         Enum.TryParse(orderBy, out OrderByAnimesOptions option);
         var query = new GetAllAnimesQuery()
@@ -40,7 +47,17 @@ public class AnimeController : ControllerBase
             TagIds = tagIds
         };
         var result = await _mediator.Send(query);
-        return Ok(_mapper.Map<IEnumerable<AnimeDto>>(result));
+        var animes = _mapper.Map<IEnumerable<AnimeDto>>(result);
+        if (page > Math.Ceiling((double) animes.Count() / resultsPerPage)) return NotFound();
+        var animeChunk = animes.Count() > resultsPerPage
+            ? animes.Skip((page - 1) * resultsPerPage).Take(resultsPerPage)
+            : animes;
+        var searchResult = new AnimeSearchResultDto()
+        {
+            Animes = animeChunk,
+            AllCount = animes.Count()
+        };
+        return Ok(searchResult);
     }
 
     [HttpGet("{id}", Name = "GetAnimeById")]
