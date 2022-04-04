@@ -48,6 +48,7 @@ public class AnimeController : ControllerBase
         };
         var result = await _mediator.Send(query);
         var animes = _mapper.Map<IEnumerable<AnimeDto>>(result);
+        if (animes.Count() == 0) return Ok(new AnimeSearchResultDto() {Animes = animes, AllCount = 0});
         if (page > Math.Ceiling((double) animes.Count() / resultsPerPage)) return NotFound();
         var animeChunk = animes.Count() > resultsPerPage
             ? animes.Skip((page - 1) * resultsPerPage).Take(resultsPerPage)
