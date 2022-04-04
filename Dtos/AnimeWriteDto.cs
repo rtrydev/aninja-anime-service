@@ -12,7 +12,7 @@ public class AnimeWriteDto
     [Required]
     [StringLength(100)]
     public string TranslatedTitle { get; set; } = "";
-    [StringLength(50)]
+    [StringLength(150)]
     public string? ImgUrl { get; set; }
     [StringLength(1000)]
     public string? Description { get; set; }
