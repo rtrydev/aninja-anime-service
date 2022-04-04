@@ -14,7 +14,7 @@ public class AnimeWriteDto
     public string TranslatedTitle { get; set; } = "";
     [StringLength(150)]
     public string? ImgUrl { get; set; }
-    [StringLength(1000)]
+    [StringLength(2000)]
     public string? Description { get; set; }
     [Range(typeof(DateTime), "1/1/1970", "1/1/2025")]
     public DateTime StartDate { get; set; }
